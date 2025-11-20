@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery DOM Manipulation Task</title>
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Tailwind CSS for layout aesthetics -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md border border-slate-200">
+        
+        <div class="mb-6 border-b border-slate-100 pb-4">
+            <h1 class="text-2xl font-bold text-slate-800">jQuery DOM Task</h1>
+            <p class="text-sm text-slate-500 mt-1">Click the button below to execute the script.</p>
+        </div>
+
+        <!-- 1. Create an HTML page with a list of items -->
+        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 mb-6">
+            <h2 class="font-semibold text-slate-700 mb-3">Fruit List:</h2>
+            <ul id="fruitList" class="list-disc list-inside space-y-2 text-lg font-medium text-slate-800 transition-all">
+                <li>Apple</li>
+                <li>Banana</li>
+                <li>Cherry</li>
+            </ul>
+        </div>
+
+        <!-- Area to display the total count -->
+        <div id="countDisplay" class="mb-6 font-mono text-sm text-slate-600 h-6">
+            <!-- Count will appear here -->
+        </div>
+
+        <!-- Controls -->
+        <div class="flex space-x-3">
+            <button id="runBtn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition active:scale-95 shadow-md">
+                Run jQuery Script
+            </button>
+            <button id="resetBtn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-2 px-4 rounded-lg transition active:scale-95">
+                Reset
+            </button>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            
+            // Event listener for the "Run" button
+            $("#runBtn").click(function() {
+                
+                // --- TASK IMPLEMENTATION ---
+
+                // 1. Change the text color of all list items to blue
+                // We use CSS color 'blue' (specifically a nice Tailwind blue shade here for aesthetics, or standard 'blue')
+                $("#fruitList li").css("color", "#2563EB"); // #2563EB is Tailwind blue-600
+
+                // 2. Add a new list item "Mango" at the end of the list
+                $("#fruitList").append("<li>Mango</li>");
+
+                // 3. Highlight the first and last list items using different background colors
+                // Note: Since we just appended Mango, it is now the last item.
+                $("#fruitList li:first").css("background-color", "#FEF08A"); // Yellow (first)
+                $("#fruitList li:last").css("background-color", "#BBF7D0");  // Green (last)
+
+                // 4. Display the total number of list items below the list
+                var totalItems = $("#fruitList li").length;
+                $("#countDisplay").html("Total items: <span class='font-bold text-black'>" + totalItems + "</span>");
+
+                // --- UI HANDLING (Optional for UX) ---
+                $(this).prop("disabled", true).addClass("opacity-50 cursor-not-allowed");
+            });
+
+
+            // Reset functionality to run the test again
+            $("#resetBtn").click(function() {
+                // Restore original list
+                $("#fruitList").html("<li>Apple</li><li>Banana</li><li>Cherry</li>");
+                // Remove inline styles added by .css()
+                $("#fruitList li").removeAttr("style");
+                // Clear count
+                $("#countDisplay").empty();
+                // Re-enable Run button
+                $("#runBtn").prop("disabled", false).removeClass("opacity-50 cursor-not-allowed");
+            });
+
+        });
+    </script>
+</body>
+</html>
